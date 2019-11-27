@@ -37,6 +37,34 @@ const Map = () => {
 
   useEffect(() => {
     requestLocation();
+    const watchID = Geolocation.watchPosition(
+      position => {
+        const newCoordinate = {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        };
+        if (Platform.OS === 'android') {
+          if (marker) {
+            marker._component.animateMarkerToCoordinate(newCoordinate, 500);
+          }
+        } else {
+          coordinate.timing(newCoordinate).start();
+        }
+        setLatitude(newCoordinate.latitude);
+        setLongitude(newCoordinate.longitude);
+        setRouteCoordinates(routeCoordinates.concat(newCoordinate));
+        setDistanceTravelled(distanceTravelled + calcDistance(newCoordinate));
+        setPrevLatLng({latitude, longitude});
+      },
+      error => console.log(error),
+      {
+        enableHighAccuracy: true,
+        timeout: 20000,
+        maximumAge: 1000,
+        distanceFilter: 10,
+      },
+    );
+    return Geolocation.clearWatch(watchID);
   }, []);
 
   const requestLocation = async () => {
@@ -47,24 +75,33 @@ const Map = () => {
   };
 
   const calcDistance = newLatLng => {
-    return haversine(prevLatLng, newLatLng) || 0;
+    return haversine(prevLatLng, newLatLng) / 1.609344 || 0;
   };
 
   return (
-    <MapView
-      style={styles.map}
-      showUserLocation
-      followUserLocation
-      loadingEnabled
-      region={{
-        latitude: latitude,
-        longitude: longitude,
-        latitudeDelta: delta,
-        longitudeDelta: delta,
-      }}>
-      <Polyline coordinates={routeCoordinates} strokeWidth={5} />
-      <Marker.Animated ref={x => setMarker(x)} coordinate={coordinate} />
-    </MapView>
+    <View style={styles.container}>
+      <MapView
+        style={styles.map}
+        showUserLocation
+        followUserLocation
+        loadingEnabled
+        region={{
+          latitude: latitude,
+          longitude: longitude,
+          latitudeDelta: delta,
+          longitudeDelta: delta,
+        }}>
+        <Polyline coordinates={routeCoordinates} strokeWidth={5} />
+        <Marker.Animated ref={x => setMarker(x)} coordinate={coordinate} />
+      </MapView>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={[styles.bubble, styles.button]}>
+          <Text style={styles.bottomBarContent}>
+            {parseFloat(distanceTravelled).toFixed(2)} mi
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 };
 
@@ -76,6 +113,28 @@ const styles = StyleSheet.create({
   },
   map: {
     ...StyleSheet.absoluteFillObject,
+  },
+  bubble: {
+    flex: 1,
+    backgroundColor: 'rgba(255,255,255,0.7)',
+    paddingHorizontal: 18,
+    paddingVertical: 12,
+    borderRadius: 20,
+  },
+  latlng: {
+    width: 200,
+    alignItems: 'stretch',
+  },
+  button: {
+    width: 80,
+    paddingHorizontal: 12,
+    alignItems: 'center',
+    marginHorizontal: 10,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    marginVertical: 20,
+    backgroundColor: 'transparent',
   },
 });
 
