@@ -35,7 +35,6 @@ const Map = () => {
     }),
   );
 
-
   useEffect(() => {
     requestLocation();
     Geolocation.getCurrentPosition(position => {
@@ -76,14 +75,13 @@ const Map = () => {
   };
 
   const setLatLng = x => {
-    let tempCoord = x.nativeEvent.coordinate
+    let tempCoord = x.nativeEvent.coordinate;
     setLatitude(tempCoord.latitude);
     setLongitude(tempCoord.longitude);
     setRouteCoordinates(routeCoordinates.concat(tempCoord));
     setDistanceTravelled(distanceTravelled + calcDistance(tempCoord));
     setPrevLatLng({latitude, longitude});
   };
-
 
   const mapStyle = [
   {
@@ -294,13 +292,17 @@ const Map = () => {
         }}
         customMapStyle={mapStyle}>
         <Polyline coordinates={routeCoordinates} strokeWidth={5} />
-        <Marker.Animated draggable ref={x => setMarker(x)} coordinate={coordinate} />
+        <Marker.Animated
+          draggable
+          ref={x => setMarker(x)}
+          coordinate={coordinate}
+        />
       </MapView>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          style={[styles.bubble, styles.button]}>
+        <TouchableOpacity style={[styles.bubble, styles.button]}>
           <Text style={styles.bottomBarContent}>
-            {latitude.toFixed(4)}|{longitude.toFixed(4)}     {parseInt(distanceTravelled).toFixed(2)} mi
+            {latitude.toFixed(4)}|{longitude.toFixed(4)}{' '}
+            {parseInt(distanceTravelled).toFixed(2)} mi
           </Text>
         </TouchableOpacity>
       </View>
@@ -308,9 +310,7 @@ const Map = () => {
         <TouchableOpacity
           style={[styles.bubble, styles.button]}
           onPress={setDelta}>
-          <Text style={styles.bottomBarContent}>
-            Zoom Out
-          </Text>
+          <Text style={styles.bottomBarContent}>Zoom Out</Text>
         </TouchableOpacity>
       </View>
     </View>
