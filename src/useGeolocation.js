@@ -5,5 +5,14 @@ export const useGeolocation = () => {
   const [location, setLocation] = useState({});
   const [error, setError] = useState(null);
 
-  useEffect(() => {});
+  const onChange = ({coords}) => {
+    setLocation({
+      latitude: coords.latitude,
+      longitude: coords.longitude,
+    });
+  };
+
+  useEffect(() => {
+    const id = Geolocation.watchPosition(onChange)
+  });
 };
