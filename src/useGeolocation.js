@@ -13,6 +13,9 @@ export const useGeolocation = () => {
   };
 
   useEffect(() => {
-    const id = Geolocation.watchPosition(onChange)
-  });
+    const id = Geolocation.watchPosition(onChange);
+
+    return () => Geolocation.clearWatch(id);
+  }, []);
+  return {...location, error};
 };
