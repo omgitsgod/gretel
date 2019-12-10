@@ -12,8 +12,12 @@ export const useGeolocation = () => {
     });
   };
 
+  const onError = err => {
+    setError(err.message);
+  };
+
   useEffect(() => {
-    const id = Geolocation.watchPosition(onChange);
+    const id = Geolocation.watchPosition(onChange, onError);
 
     return () => Geolocation.clearWatch(id);
   }, []);
