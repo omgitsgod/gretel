@@ -5,10 +5,13 @@ export const useGeolocation = () => {
   const [location, setLocation] = useState({});
   const [error, setError] = useState(null);
 
-  const onChange = ({coords}) => {
+  const onChange = position => {
     setLocation({
-      latitude: coords.latitude,
-      longitude: coords.longitude,
+      latitude: position.coords.latitude,
+      longitude: position.coords.longitude,
+      speed: position.coords.speed,
+      heading: position.coords.heading,
+      timestamp: position.timestamp,
     });
   };
 
