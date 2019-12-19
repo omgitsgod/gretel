@@ -1,4 +1,6 @@
 import React, {useState, useEffect} from 'react';
+import {Icon} from 'react-native-elements';
+import useGeolocation from './useGeolocation';
 import {
   StyleSheet,
   View,
