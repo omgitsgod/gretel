@@ -28,6 +28,7 @@ const Map = () => {
   const [prevLatLng, setPrevLatLng] = useState({});
   const [marker, setMarker] = useState(false);
   const [delta, setDelta] = useState(0.009);
+  const [focus, setFocus] = useState(true);
   const [coordinate, setCoordinate] = useState(
     new AnimatedRegion({
       latitude: latitude,
@@ -65,6 +66,14 @@ const Map = () => {
     return () => Geolocation.clearWatch(watchID);
   });
 
+  const focusOnMe = () => {
+    if (focus) {
+      setFocus(false);
+    } else {
+      setFocus(true);
+    }
+  };
+
   const requestLocation = async () => {
     const granted = await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
@@ -77,12 +86,14 @@ const Map = () => {
   };
 
   const setLatLng = x => {
-    let tempCoord = x.nativeEvent.coordinate;
-    setLatitude(tempCoord.latitude);
-    setLongitude(tempCoord.longitude);
-    setRouteCoordinates(routeCoordinates.concat(tempCoord));
-    setDistanceTravelled(distanceTravelled + calcDistance(tempCoord));
-    setPrevLatLng({latitude, longitude});
+    if (focus) {
+      let tempCoord = x.nativeEvent.coordinate;
+      setLatitude(tempCoord.latitude);
+      setLongitude(tempCoord.longitude);
+      setRouteCoordinates(routeCoordinates.concat(tempCoord));
+      setDistanceTravelled(distanceTravelled + calcDistance(tempCoord));
+      setPrevLatLng({latitude, longitude});
+    }
   };
 
   const mapStyle = [
