@@ -19,6 +19,12 @@ export const useGeolocation = () => {
     setError(err.message);
   };
 
+  const options = {
+    enableHighAccuracy: true,
+    timeout: 2000,
+    maximumAge: 1000,
+  };
+
   useEffect(() => {
     const id = Geolocation.watchPosition(onChange, onError);
 
