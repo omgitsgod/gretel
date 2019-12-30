@@ -22,8 +22,8 @@ import haversine from 'haversine';
 import Geolocation from '@react-native-community/geolocation';
 
 const Map = () => {
-  const [latitude, setLatitude] = useState(0);
-  const [longitude, setLongitude] = useState(0);
+  const [latitude, setLatitude] = useState(40.7580);
+  const [longitude, setLongitude] = useState(-73.9855);
   const [routeCoordinates, setRouteCoordinates] = useState([]);
   const [distanceTravelled, setDistanceTravelled] = useState(0);
   const [prevLatLng, setPrevLatLng] = useState({});
@@ -41,31 +41,7 @@ const Map = () => {
 
   useEffect(() => {
     requestLocation();
-    Geolocation.getCurrentPosition(position => {
-      setLatitude(position.coords.latitude);
-      setLongitude(position.coords.longitude);
-    });
-    const watchID = Geolocation.watchPosition(
-      position => {
-        const newCoordinate = {
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        };
-        setLatitude(newCoordinate.latitude);
-        setLongitude(newCoordinate.longitude);
-        setRouteCoordinates(routeCoordinates.concat(newCoordinate));
-        setDistanceTravelled(distanceTravelled + calcDistance(newCoordinate));
-        setPrevLatLng({latitude, longitude});
-      },
-      error => console.log(error),
-      {
-        enableHighAccuracy: true,
-        timeout: 2000,
-        maximumAge: 1000,
-      },
-    );
-    return () => Geolocation.clearWatch(watchID);
-  });
+  }, []);
 
   const focusOnMe = () => {
     if (focus) {
@@ -94,6 +70,7 @@ const Map = () => {
       setRouteCoordinates(routeCoordinates.concat(tempCoord));
       setDistanceTravelled(distanceTravelled + calcDistance(tempCoord));
       setPrevLatLng({latitude, longitude});
+      console.log(routeCoordinates);
     }
   };
 
