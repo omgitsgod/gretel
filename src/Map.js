@@ -111,7 +111,7 @@ const Map = () => {
           type="material-community"
           size={50}
           color="#1ec5e3"
-          onPress={() => console.log('location!')}
+          onPress={focusOnMe}
         />
       </View>
     </View>
