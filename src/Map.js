@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
   crossHair: {
     position: 'absolute',
     bottom: 20,
-    right: 0,
+    right: 5,
   },
 });
 
