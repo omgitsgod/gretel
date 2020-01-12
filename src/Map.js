@@ -118,6 +118,7 @@ const Map = () => {
           size={50}
           color="#1ec5e3"
           onPress={focusOnMe}
+          underlayColor="transparent"
         />
       </View>
     </View>
