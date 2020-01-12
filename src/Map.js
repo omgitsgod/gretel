@@ -110,7 +110,7 @@ const Map = () => {
           name="crosshairs"
           type="material-community"
           size={50}
-          color="#f50"
+          color="#1ec5e3"
           onPress={() => console.log('location!')}
         />
       </View>
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
   },
   crossHair: {
     position: 'absolute',
-    bottom: 0,
+    bottom: 20,
     right: 0,
   },
 });
