@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Icon, Button} from 'react-native-elements';
+import {Icon} from 'react-native-elements';
 import useGeolocation from './useGeolocation';
 import {mapStyle} from './constants';
 import {
@@ -7,7 +7,6 @@ import {
   View,
   Text,
   TouchableOpacity,
-  Platform,
   PermissionsAndroid,
 } from 'react-native';
 import MapView, {
@@ -20,7 +19,7 @@ import haversine from 'haversine';
 import Geolocation from '@react-native-community/geolocation';
 
 const Map = () => {
-  const [latitude, setLatitude] = useState(40.7580);
+  const [latitude, setLatitude] = useState(40.758);
   const [longitude, setLongitude] = useState(-73.9855);
   const [routeCoordinates, setRouteCoordinates] = useState([]);
   const [distanceTravelled, setDistanceTravelled] = useState(0);
@@ -36,6 +35,7 @@ const Map = () => {
       longitudeDelta: delta,
     }),
   );
+  let icon
 
   useEffect(() => {
     requestLocation();
@@ -72,6 +72,12 @@ const Map = () => {
     }
   };
 
+  if (focus) {
+    icon = 'crosshairs-gps';
+  } else {
+    icon = 'crosshairs';
+  }
+
   return (
     <View style={styles.container}>
       <MapView
@@ -107,7 +113,7 @@ const Map = () => {
       </View>
       <View style={styles.crossHair}>
         <Icon
-          name="crosshairs"
+          name={icon}
           type="material-community"
           size={50}
           color="#1ec5e3"
