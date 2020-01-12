@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Icon} from 'react-native-elements';
+import {Icon, Button} from 'react-native-elements';
 import useGeolocation from './useGeolocation';
 import {mapStyle} from './constants';
 import {
@@ -10,14 +10,12 @@ import {
   Platform,
   PermissionsAndroid,
 } from 'react-native';
-
 import MapView, {
   Marker,
   AnimatedRegion,
   Polyline,
   PROVIDER_GOOGLE,
 } from 'react-native-maps';
-
 import haversine from 'haversine';
 import Geolocation from '@react-native-community/geolocation';
 
@@ -103,17 +101,18 @@ const Map = () => {
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={[styles.bubble, styles.button]}>
           <Text style={styles.bottomBarContent}>
-            {latitude.toFixed(4)}|{longitude.toFixed(4)}{' '}
             {parseInt(distanceTravelled).toFixed(2)} mi
           </Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          style={[styles.bubble, styles.button]}
-          onPress={setDelta}>
-          <Text style={styles.bottomBarContent}>Zoom Out</Text>
-        </TouchableOpacity>
+      <View style={styles.crossHair}>
+        <Icon
+          name="crosshairs"
+          type="material-community"
+          size={50}
+          color="#f50"
+          onPress={() => console.log('location!')}
+        />
       </View>
     </View>
   );
@@ -149,6 +148,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginVertical: 20,
     backgroundColor: 'transparent',
+  },
+  crossHair: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
   },
 });
 
