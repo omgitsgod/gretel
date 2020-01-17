@@ -24,7 +24,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import Map from './src/Map';
+import Map from './src/components/Map';
 
 const App: () => React$Node = () => {
   return (
