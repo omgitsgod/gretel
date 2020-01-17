@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {Icon} from 'react-native-elements';
 import useGeolocation from './useGeolocation';
-import {mapStyle} from './constants';
-import styles from './style/Map';
+import {mapStyle} from '../constants';
+import styles from '../style/Map';
 import {
   StyleSheet,
   View,
