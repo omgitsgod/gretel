@@ -36,7 +36,7 @@ const Map = () => {
       longitudeDelta: delta,
     }),
   );
-  let icon;
+  let locationIcon;
 
   useEffect(() => {
     requestLocation();
@@ -74,9 +74,9 @@ const Map = () => {
   };
 
   if (focus) {
-    icon = 'crosshairs-gps';
+    locationIcon = 'crosshairs-gps';
   } else {
-    icon = 'crosshairs';
+    locationIcon = 'crosshairs';
   }
 
   return (
@@ -112,9 +112,18 @@ const Map = () => {
           </Text>
         </TouchableOpacity>
       </View>
+      <View style={styles.menu}>
+        <Icon
+          name="menu"
+          type="material-community"
+          size={50}
+          color="#1ec5e3"
+          underlayColor="transparent"
+        />
+      </View>
       <View style={styles.crossHair}>
         <Icon
-          name={icon}
+          name={locationIcon}
           type="material-community"
           size={50}
           color="#1ec5e3"
