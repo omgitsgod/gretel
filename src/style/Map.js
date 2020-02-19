@@ -35,6 +35,11 @@ const styles = StyleSheet.create({
     bottom: 20,
     right: 5,
   },
+  menu: {
+    position: 'absolute',
+    top: 20,
+    left: 5,
+  },
 });
 
 export default styles;
