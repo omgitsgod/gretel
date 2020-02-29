@@ -25,11 +25,12 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import Map from './src/components/Map';
+import AppNavigator from './src/navigation/AppNavigator';
 
 const App: () => React$Node = () => {
   return (
     <>
-      <Map />
+      <AppNavigator />
     </>
   );
 };
