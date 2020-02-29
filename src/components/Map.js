@@ -19,7 +19,7 @@ import MapView, {
 import haversine from 'haversine';
 import Geolocation from '@react-native-community/geolocation';
 
-const Map = () => {
+const Map = ({navigation}) => {
   const [latitude, setLatitude] = useState(40.758);
   const [longitude, setLongitude] = useState(-73.9855);
   const [routeCoordinates, setRouteCoordinates] = useState([]);
@@ -118,6 +118,7 @@ const Map = () => {
           type="material-community"
           size={50}
           color="#1ec5e3"
+          onPress={navigation.toggleDrawer}
           underlayColor="transparent"
         />
       </View>
