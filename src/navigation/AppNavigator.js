@@ -8,6 +8,7 @@ import {
 import {Icon} from 'react-native-elements';
 import MapScreen from '../screens/MapScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import SettingsScreen from '../screens/SettingsScreen'
 
 const Drawer = createDrawerNavigator();
 
@@ -39,6 +40,16 @@ const ProfileIcon = ({focused, color}) => (
   />
 );
 
+const SettingsIcon = ({focused, color}) => (
+  <Icon
+    name="cogs"
+    type="material-community"
+    color={color}
+    size={50}
+    underlayColor="transparent"
+  />
+);
+
 const AppNavigator = () => {
   return (
     <NavigationContainer theme={DarkTheme}>
@@ -59,6 +70,15 @@ const AppNavigator = () => {
             title: 'Profile',
             drawerLabel: 'Profile',
             drawerIcon: ProfileIcon,
+          }}
+        />
+        <Drawer.Screen
+          name="Settings"
+          component={SettingsScreen}
+          options={{
+            title: 'Settings',
+            drawerLabel: 'Settings',
+            drawerIcon: SettingsIcon,
           }}
         />
       </Drawer.Navigator>
