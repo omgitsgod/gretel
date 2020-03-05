@@ -118,7 +118,7 @@ const Map = ({navigation}) => {
           type="material-community"
           size={50}
           color="#1ec5e3"
-          onPress={navigation.toggleDrawer}
+          onPress={navigation.openDrawer}
           underlayColor="transparent"
         />
       </View>
