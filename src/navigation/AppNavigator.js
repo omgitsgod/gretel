@@ -1,6 +1,10 @@
 import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import {NavigationContainer, DefaultTheme, DarkTheme} from '@react-navigation/native';
+import {
+  NavigationContainer,
+  DefaultTheme,
+  DarkTheme,
+} from '@react-navigation/native';
 import MapScreen from '../screens/MapScreen';
 
 const Drawer = createDrawerNavigator();
