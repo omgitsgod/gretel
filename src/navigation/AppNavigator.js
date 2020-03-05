@@ -5,6 +5,7 @@ import {
   DefaultTheme,
   DarkTheme,
 } from '@react-navigation/native';
+import {Icon} from 'react-native-elements';
 import MapScreen from '../screens/MapScreen';
 
 const Drawer = createDrawerNavigator();
@@ -17,6 +18,16 @@ const CustomTheme = {
   },
 };
 
+const MapIcon = ({focused, color}) => (
+  <Icon
+    name="google-maps"
+    type="material-community"
+    color={color}
+    size={50}
+    underlayColor="transparent"
+  />
+);
+
 const AppNavigator = () => {
   return (
     <NavigationContainer theme={DarkTheme}>
@@ -24,7 +35,7 @@ const AppNavigator = () => {
         <Drawer.Screen
           name="Map"
           component={MapScreen}
-          options={{title: 'My home'}}
+          options={{title: 'Map', drawerLabel: 'Map', drawerIcon: MapIcon}}
         />
       </Drawer.Navigator>
     </NavigationContainer>
